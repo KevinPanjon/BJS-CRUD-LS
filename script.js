@@ -1,6 +1,13 @@
 // Datos iniciales de las tareas
 let tasks = [];
 
+// Comprueba si hay datos de tareas almacenados en localStorage
+if (localStorage.getItem("tasks")) {
+  // Recupera las tareas almacenadas y las asigna a la variable tasks
+  tasks = JSON.parse(localStorage.getItem("tasks"));
+}
+
+
 // Obtener elementos del DOM
 const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
@@ -23,6 +30,10 @@ function renderTasks() {
     
     taskList.appendChild(li);
   });
+
+
+// Almacena las tareas en localStorage
+localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 // Función para agregar una nueva tarea
@@ -67,6 +78,9 @@ function toggleTaskStatus(index) {
   
   renderTasks();
 }
+
+// Renderiza las tareas al cargar la página
+renderTasks();
 
 // Asignar el evento de envío de formulario
 taskForm.addEventListener('submit', addTask);
